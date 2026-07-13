@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paspoort van de Manche — Reisgids Barneville-Carteret</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,400&family=Nunito+Sans:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bosgroen:#2F5D50;
+    --diepgroen:#1F3F37;
+    --goud:#DFA33C;
+    --zachtgoud:#F3DCAE;
+    --papier:#FBF7EE;
+    --inkt:#2B2620;
+    --rood:#B4543A;
+    --zachtgroen:#E3EDE9;
+    --maxw:1160px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--papier);
+    color:var(--inkt);
+    font-family:"Nunito Sans",system-ui,sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{font-family:"Fraunces",Georgia,serif;}
+
+  /* ---------- STEMPEL MOTIEF (signature) ---------- */
+  .stempel{
+    position:relative;
+    display:grid;
+    place-content:center;
+    text-align:center;
+    width:96px;height:96px;
+    border-radius:50%;
+    border:2px dashed var(--goud);
+    color:var(--zachtgoud);
+    transform:rotate(-8deg);
+    flex:0 0 auto;
+  }
+  .stempel::after{
+    content:"";
+    position:absolute;inset:8px;
+    border-radius:50%;
+    border:1px solid rgba(223,163,60,.45);
+  }
+  .stempel .k{font-family:"Fraunces";font-weight:900;font-size:1.5rem;line-height:1;}
+  .stempel .l{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;margin-top:2px;}
+
+  /* ---------- COVER ---------- */
+  .cover{
+    background:
+      radial-gradient(1200px 500px at 80% -10%, rgba(223,163,60,.18), transparent 60%),
+      linear-gradient(160deg,var(--diepgroen),var(--bosgroen));
+    color:var(--papier);
+    padding:64px 24px 72px;
+    position:relative;
+    overflow:hidden;
+  }
+  .cover::before{
+    content:"";position:absolute;inset:14px;
+    border:1.5px solid rgba(243,220,174,.30);
+    border-radius:18px;pointer-events:none;
+  }
+  .cover-inner{max-width:var(--maxw);margin:0 auto;position:relative;}
+  .eyebrow{
+    font-family:"Nunito Sans";font-weight:900;
+    letter-spacing:.30em;text-transform:uppercase;
+    font-size:.72rem;color:var(--zachtgoud);
+    display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::after{content:"";height:1px;flex:1;background:rgba(243,220,174,.4);max-width:220px;}
+  .cover h1{
+    font-size:clamp(2.6rem,7vw,5rem);
+    font-weight:900;line-height:.98;margin:.35em 0 .1em;
+    letter-spacing:-.01em;
+  }
+  .cover h1 em{font-style:italic;color:var(--goud);}
+  .cover .sub{font-size:clamp(1.05rem,2.2vw,1.3rem);max-width:38ch;color:#EAF2ED;}
+  .cover-meta{
+    display:flex;flex-wrap:wrap;gap:14px 28px;margin-top:30px;
+    font-size:.95rem;
+  }
+  .cover-meta div{display:flex;flex-direction:column;gap:2px;}
+  .cover-meta .cap{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--zachtgoud);font-weight:900;}
+  .cover-meta .val{font-family:"Fraunces";font-weight:600;font-size:1.1rem;color:#fff;}
+  .cover-top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;}
+  .tagline{
+    margin-top:34px;font-family:"Fraunces";font-style:italic;
+    font-size:1.15rem;color:var(--zachtgoud);
+  }
+  .tagline b{color:var(--goud);font-style:normal;font-weight:900;}
+
+  /* ---------- CONTAINER ---------- */
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+
+  /* ---------- INTRO / LEGENDE ---------- */
+  .intro{padding:52px 0 8px;}
+  .intro p{font-size:1.15rem;max-width:64ch;}
+  .intro .lead{font-family:"Fraunces";font-size:1.4rem;font-weight:600;line-height:1.4;color:var(--diepgroen);}
+  .legend{
+    display:flex;flex-wrap:wrap;gap:10px 12px;margin:26px 0 6px;
+    padding:18px 20px;border-radius:14px;background:var(--zachtgroen);
+    border:1px solid rgba(47,93,80,.18);
+  }
+  .legend .lg-title{width:100%;font-family:"Fraunces";font-weight:700;color:var(--bosgroen);margin-bottom:2px;}
+  .pill{
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:.82rem;font-weight:700;
+    padding:5px 12px;border-radius:999px;white-space:nowrap;
+  }
+  .pill svg{width:15px;height:15px;flex:0 0 auto;}
+  .p-los{background:rgba(47,93,80,.14);color:var(--bosgroen);}
+  .p-lei{background:rgba(223,163,60,.20);color:#8a5f14;}
+  .p-beurt{background:rgba(180,84,58,.16);color:var(--rood);}
+
+  /* ---------- FILTERS ---------- */
+  .filterbar{
+    position:sticky;top:0;z-index:20;
+    background:rgba(251,247,238,.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(47,93,80,.14);
+    padding:14px 0;margin-top:34px;
+  }
+  .filterbar .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
+  .chip{
+    font-family:"Nunito Sans";font-weight:700;font-size:.9rem;
+    border:1.5px solid rgba(47,93,80,.30);
+    background:transparent;color:var(--bosgroen);
+    padding:8px 16px;border-radius:999px;cursor:pointer;
+    transition:transform .12s ease,background .18s ease,color .18s ease;
+  }
+  .chip:hover{transform:translateY(-1px);}
+  .chip[aria-pressed="true"]{background:var(--bosgroen);color:var(--papier);border-color:var(--bosgroen);}
+  .chip.keuze[aria-pressed="true"]{background:var(--goud);color:var(--inkt);border-color:var(--goud);}
+  .chip .n{opacity:.8;font-weight:900;}
+  .filter-spacer{flex:1;}
+
+  /* ---------- SECTION HEADS ---------- */
+  .sectionhead{display:flex;align-items:baseline;gap:16px;margin:46px 0 22px;}
+  .sectionhead h2{font-size:clamp(1.6rem,3.4vw,2.2rem);font-weight:900;color:var(--diepgroen);margin:0;}
+  .sectionhead .rule{flex:1;height:2px;background:linear-gradient(90deg,var(--goud),transparent);border-radius:2px;}
+
+  /* ---------- CARD GRID ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px;padding-bottom:8px;}
+  .card{
+    position:relative;background:#fff;border-radius:16px;
+    border:1px solid rgba(47,93,80,.14);
+    box-shadow:0 1px 0 rgba(43,38,32,.04),0 14px 30px -22px rgba(31,63,55,.4);
+    padding:22px 22px 20px;
+    display:flex;flex-direction:column;gap:12px;
+    transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;
+  }
+  .card.hidden{display:none;}
+  .card:hover{transform:translateY(-3px);box-shadow:0 22px 40px -24px rgba(31,63,55,.55);}
+  .card.selected{border-color:var(--goud);box-shadow:0 0 0 2px var(--goud),0 18px 34px -24px rgba(31,63,55,.5);}
+  .card .cat{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:var(--goud);}
+  .card h3{font-size:1.32rem;font-weight:700;margin:0;line-height:1.15;color:var(--inkt);padding-right:64px;}
+  .card p{margin:0;font-size:.98rem;color:#40413c;}
+  .card .tip{
+    font-size:.9rem;background:var(--zachtgroen);border-radius:10px;
+    padding:9px 12px;color:var(--diepgroen);
+  }
+  .card .tip b{font-family:"Fraunces";font-weight:700;}
+  .card .foot{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:4px;}
+
+  /* distance stamp on card */
+  .card .diststamp{
+    position:absolute;top:16px;right:16px;
+    width:66px;height:66px;border-radius:50%;
+    border:2px dashed var(--rood);
+    display:grid;place-content:center;text-align:center;
+    transform:rotate(-9deg);color:var(--rood);
+  }
+  .card .diststamp .m{font-family:"Fraunces";font-weight:900;font-size:1.02rem;line-height:1;}
+  .card .diststamp .u{font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;}
+
+  /* kies-knop */
+  .pick{
+    margin-left:auto;display:inline-flex;align-items:center;gap:7px;
+    font-family:"Nunito Sans";font-weight:800;font-size:.82rem;
+    border:1.5px solid rgba(47,93,80,.30);background:transparent;color:var(--bosgroen);
+    padding:7px 13px;border-radius:999px;cursor:pointer;transition:all .15s ease;
+  }
+  .pick svg{width:15px;height:15px;}
+  .pick:hover{background:var(--zachtgroen);}
+  .card.selected .pick{background:var(--goud);border-color:var(--goud);color:var(--inkt);}
+  .card.selected .pick .txt::after{content:" ✓";}
+
+  /* ---------- HONDEN NOTE ---------- */
+  .honden{
+    margin:52px 0 10px;background:var(--diepgroen);color:var(--papier);
+    border-radius:20px;padding:38px 32px;position:relative;overflow:hidden;
+  }
+  .honden::before{content:"";position:absolute;inset:12px;border:1.5px dashed rgba(243,220,174,.35);border-radius:14px;pointer-events:none;}
+  .honden h2{font-size:1.8rem;color:#fff;margin:0 0 6px;position:relative;}
+  .honden .kicker{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;font-weight:900;color:var(--goud);}
+  .honden-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;margin-top:22px;position:relative;}
+  .honden-grid h4{font-family:"Fraunces";font-size:1.1rem;margin:0 0 6px;color:var(--zachtgoud);}
+  .honden-grid p{margin:0;font-size:.95rem;color:#E7EFEA;}
+  .honden-grid ul{margin:6px 0 0;padding-left:18px;font-size:.95rem;color:#E7EFEA;}
+  .honden-grid li{margin:3px 0;}
+
+  /* ---------- FOOTER ---------- */
+  footer{text-align:center;padding:56px 24px 70px;}
+  footer .stempel{margin:0 auto 18px;border-color:var(--bosgroen);color:var(--bosgroen);width:110px;height:110px;}
+  footer .stempel::after{border-color:rgba(47,93,80,.4);}
+  footer .stempel .k{color:var(--bosgroen);}
+  footer .fx-tag{font-family:"Fraunces";font-style:italic;font-size:1.25rem;color:var(--bosgroen);}
+  footer .fx-tag b{font-style:normal;color:var(--goud);font-weight:900;}
+  footer .small{margin-top:10px;font-size:.85rem;color:#7a766d;}
+
+  .disclaimer{font-size:.82rem;color:#8a867c;margin-top:14px;max-width:70ch;}
+
+  @media (max-width:560px){
+    body{font-size:16px;}
+    .cover{padding:44px 20px 54px;}
+    .cover-top{flex-direction:column-reverse;align-items:flex-start;}
+    .stempel{width:78px;height:78px;}
+    .card h3{padding-right:56px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{scroll-behavior:auto;transition:none!important;}
+  }
+  :focus-visible{outline:3px solid var(--goud);outline-offset:2px;border-radius:6px;}
+</style>
+</head>
+<body>
+
+<!-- ===================== COVER ===================== -->
+<header class="cover">
+  <div class="cover-inner">
+    <div class="cover-top">
+      <div style="flex:1;min-width:260px;">
+        <div class="eyebrow">Zorghond Mollie · Reisgids</div>
+        <h1>Paspoort van de <em>Manche</em></h1>
+        <p class="sub">Onze week in de Cotentin — kliffen, duinen, oesters en heel veel plek voor natte pootjes.</p>
+      </div>
+      <div class="stempel" aria-hidden="true">
+        <div>
+          <div class="k">50</div>
+          <div class="l">Cotentin</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-meta">
+      <div><span class="cap">Uitvalsbasis</span><span class="val">Barneville-Carteret</span></div>
+      <div><span class="cap">Reisgezelschap</span><span class="val">+ Mollie &amp; Maddie</span></div>
+    </div>
+
+    <p class="tagline"><b>short legs, big love</b> — een week aan het einde van de wereld.</p>
+  </div>
+</header>
+
+<!-- ===================== INTRO ===================== -->
+<section class="wrap intro">
+  <p class="lead">De Manche is hét hondendepartement van Frankrijk: nergens zijn er meer stranden waar je viervoeter welkom is — zo'n 40, waarvan 22 in de Cotentin.</p>
+  <p>Vanuit Barneville-Carteret zit je op de wilde westkust (de Côte des Isles), met de mooiste plekken op fiets- of rijafstand. Kies hieronder per dag wat jullie aanspreekt. Tik op <b>“kies dit”</b> om plekken op jullie shortlist te zetten, of filter op categorie.</p>
+
+  <div class="legend">
+    <div class="lg-title">Wat betekenen de hond-labels?</div>
+    <span class="pill p-los"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg> Los mag</span>
+    <span class="pill p-lei"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg> Aan de leiband</span>
+    <span class="pill p-beurt"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg> Om beurten (hond niet naar binnen)</span>
+  </div>
+</section>
+
+<!-- ===================== FILTERS ===================== -->
+<div class="filterbar">
+  <div class="wrap">
+    <button class="chip" data-filter="all" aria-pressed="true">Alles</button>
+    <button class="chip" data-filter="vlakbij" aria-pressed="false">Dichtbij (&lt;20 min)</button>
+    <button class="chip" data-filter="natuur" aria-pressed="false">Natuur &amp; kust</button>
+    <button class="chip" data-filter="historie" aria-pressed="false">Geschiedenis</button>
+    <button class="chip" data-filter="dorpen" aria-pressed="false">Dorpen &amp; lekkers</button>
+    <button class="chip" data-filter="parels" aria-pressed="false">Verborgen parels</button>
+    <span class="filter-spacer"></span>
+    <button class="chip keuze" data-filter="keuze" aria-pressed="false">★ Onze keuze <span class="n">(0)</span></button>
+  </div>
+</div>
+
+<main class="wrap" id="deck">
+
+  <!-- ---------- DICHTBIJ ---------- -->
+  <div class="sectionhead"><h2>Vanuit de voordeur</h2><span class="rule"></span></div>
+  <div class="grid">
+
+    <article class="card" data-cat="vlakbij natuur">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±5'</div><div class="u">rijden</div></div></div>
+      <div class="cat">Uitzicht · Zonsondergang</div>
+      <h3>Cap de Carteret &amp; de sémaphore</h3>
+      <p>Pal naast jullie huis. Klim naar de sémaphore voor een weids uitzicht op de Kanaaleilanden — bij helder weer zie je Jersey liggen. Onderaan het strand van Barneville en de haven.</p>
+      <div class="tip"><b>Tip:</b> ga bij zonsondergang; het gouden licht op de kliffen is de mooiste van de week.</div>
+      <div class="foot"><span class="pill p-lei">Aan de leiband</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+
+    <article class="card" data-cat="vlakbij natuur">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±10'</div><div class="u">rijden</div></div></div>
+      <div class="cat">Natuur · Duinen</div>
+      <h3>Dunes de Hatainville</h3>
+      <p>Eén van de grootste duinmassieven van de regio, drie kilometer wild en leeg. Een absoluut hondenparadijs: ruimte zat om te rennen, met de ruïne van een kerkje dat over zee uitkijkt.</p>
+      <div class="tip"><b>Tip:</b> vroeg in de ochtend of tegen de avond — dan is het zand koeler voor de pootjes en heb je de duinen bijna voor jezelf.</div>
+      <div class="foot"><span class="pill p-los">Los mag (buiten strandzone)</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+
+    <article class="card" data-cat="vlakbij dorpen">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±20'</div><div class="u">rijden</div></div></div>
+      <div class="cat">Lekkers · Regen-proof</div>
+      <h3>La Maison du Biscuit</h3>
+      <p>In Sortosville-en-Beaumont: een sprookjesachtige oude winkel vol koekjes, karamel en zoetigheid. Gratis binnenlopen en proeven. Ideale schuilplek als het eens regent.</p>
+      <div class="tip"><b>Tip:</b> koop wat mee voor onderweg — de caramel-cookies zijn beroemd.</div>
+      <div class="foot"><span class="pill p-beurt">Om beurten (binnen)</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+
+    <article class="card" data-cat="vlakbij dorpen">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±10'</div><div class="u">rijden</div></div></div>
+      <div class="cat">Haventje · Strand</div>
+      <h3>Portbail</h3>
+      <p>Het zusje van Barneville aan de overkant van het havre: een pittoresk haventje met een 11e-eeuws romaans kerkje, een lange stenen brug met dertien bogen en een breed hondenstrand. Op zondag een gezellige markt.</p>
+      <div class="tip"><b>Tip:</b> bij eb kun je over het droogvallende havre wandelen — een klein waddengevoel op tien minuten van jullie deur.</div>
+      <div class="foot"><span class="pill p-lei">Aan de leiband</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+
+    <article class="card" data-cat="vlakbij natuur">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±20'</div><div class="u">rijden</div></div></div>
+      <div class="cat">Strand · Surf</div>
+      <h3>Le Rozel &amp; baai van Sciotot</h3>
+      <p>Fijn zandstrand tussen Cap de Flamanville en Cap du Rozel, geliefd bij surfers en gezinnen. Het strand van Le Rozel is hondvriendelijk, en de kliffen ernaast geven mooie korte wandelingen.</p>
+      <div class="tip"><b>Tip:</b> op Sciotot mogen honden in juli enkel vóór 11u en na 19u — perfect voor de ochtendronde.</div>
+      <div class="foot"><span class="pill p-lei">Aan de leiband</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+  </div>
+
+  <!-- ---------- NATUUR & KUST ---------- -->
+  <div class="sectionhead"><h2>Natuur &amp; wilde kust</h2><span class="rule"></span></div>
+  <div class="grid">
+
+    <article class="card" data-cat="natuur">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±45'</div><div class="u">rijden</div></div></div>
+      <div class="cat">Kliffen · Wandelen</div>
+      <h3>Nez de Jobourg &amp; Cap de la Hague</h3>
+      <p>De hoogste kliffen van continentaal Europa (128 m) met een echt “einde van de wereld”-gevoel. Wandel een stuk van de GR 223, het oude douanepad langs de kust — spectaculair in elk weer.</p>
+      <div class="tip"><b>Tip:</b> neem water mee, er is weinig schaduw op de kliffen. Ochtend of late namiddag geeft het mooiste licht op het graniet.</div>
+      <div class="foot"><span class="pill p-lei">Aan de leiband</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+
+    <article class="card" data-cat="natuur parels">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±35'</div><div class="u">rijden</div></div></div>
+      <div class="cat">Tuin · Verrassing</div>
+      <h3>Jardin botanique de Vauville</h3>
+      <p>Dankzij de Gulfstream groeien hier subtropische planten pal aan zee, omringd door wilde heide. Een groene oase die je niet verwacht op deze winderige punt van de Cotentin.</p>
+      <div class="tip"><b>Tip:</b> combineer met een strandwandeling bij Biville vlakbij — reusachtige duinen die naar zee aflopen.</div>
+      <div class="foot"><span class="pill p-lei">Aan de leiband</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+
+    <article class="card" data-cat="natuur parels">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±55'</div><div class="u">rijden</div></div></div>
+      <div class="cat">Vuurtoren · Uitzicht</div>
+      <h3>Cap Lévi</h3>
+      <p>Rustige kliffenwandeling met een vuurtoren en weids uitzicht over de Val de Saire. Weinig toeristen, veel zeewind — heerlijk om de honden uit te laten waaien.</p>
+      <div class="tip"><b>Tip:</b> mooi te koppelen aan een bezoek aan Barfleur, ligt in dezelfde hoek.</div>
+      <div class="foot"><span class="pill p-lei">Aan de leiband</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+
+    <article class="card" data-cat="natuur">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">dag</div><div class="u">trip</div></div></div>
+      <div class="cat">Eilanden · Boot</div>
+      <h3>Chausey-eilanden</h3>
+      <p>Vanaf Granville vaar je naar deze archipel met kristalhelder water, prachtige stranden en een vogelreservaat. Een complete verandering van decor — een klein paradijs.</p>
+      <div class="tip"><b>Tip:</b> check vooraf de bootdienst en de getijden; reserveer in het hoogseizoen op voorhand.</div>
+      <div class="foot"><span class="pill p-lei">Aan de leiband</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+
+    <article class="card" data-cat="natuur">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±45'</div><div class="u">rijden</div></div></div>
+      <div class="cat">Moeras · Kano</div>
+      <h3>Marais du Cotentin (per kano)</h3>
+      <p>Het regionale natuurpark van moerassen en polders, vol nestelende vogels en zelfs otters. Het mooist ontdek je het vanop het water: peddel per kano of paddle over de rivier de Douve. Bij sommige verhuurders (o.a. Kay Pic) mogen honden mee aan boord.</p>
+      <div class="tip"><b>Tip:</b> een zwemvestje voor de honden is aan te raden op het water.</div>
+      <div class="foot"><span class="pill p-lei">Aan de leiband</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+  </div>
+
+  <!-- ---------- GESCHIEDENIS ---------- -->
+  <div class="sectionhead"><h2>Geschiedenis &amp; grote sites</h2><span class="rule"></span></div>
+  <div class="grid">
+
+    <article class="card" data-cat="historie">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±1u30</div><div class="u">rijden</div></div></div>
+      <div class="cat">UNESCO · Icoon</div>
+      <h3>Mont-Saint-Michel</h3>
+      <p>Onvermijdelijk, en indrukwekkend. Honden mogen mee in het dorp en over de hele baai (aan de leiband), maar níet de abdij in. Grote honden mogen niet in de pendelbus — dan is het ±45 min wandelen vanaf de parking.</p>
+      <div class="tip"><b>Tip:</b> ga vroeg of tegen de avond; overdag is het bloedheet en propvol in die smalle straatjes.</div>
+      <div class="foot"><span class="pill p-beurt">Om beurten (abdij)</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+
+    <article class="card" data-cat="historie">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±45'</div><div class="u">rijden</div></div></div>
+      <div class="cat">D-Day · 1944</div>
+      <h3>Utah Beach &amp; Sainte-Mère-Église</h3>
+      <p>Een van de vijf landingsstranden — op Utah Beach mogen honden zelfs los lopen. In Sainte-Mère-Église het beroemde kerktorentje van parachutist John Steele en het Airborne Museum.</p>
+      <div class="tip"><b>Tip:</b> het brede strand bij eb is heerlijk voor een lange wandeling met de pootjes in het water.</div>
+      <div class="foot"><span class="pill p-los">Los mag (Utah Beach)</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+
+    <article class="card" data-cat="historie dorpen">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±55'</div><div class="u">rijden</div></div></div>
+      <div class="cat">Vauban · Eiland</div>
+      <h3>Saint-Vaast-la-Hougue &amp; Île Tatihou</h3>
+      <p>Charmant vissersplaatsje, top voor verse oesters en witte wijn op een terras. Naar het eiland Tatihou (Vauban-torens, UNESCO) vaar je met een amfibieboot — de enige ter wereld die zo werkt.</p>
+      <div class="tip"><b>Tip:</b> reserveer de overtocht online en maak er een halve dag van, inclusief zeevruchten in het dorp.</div>
+      <div class="foot"><span class="pill p-lei">Aan de leiband</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+
+    <article class="card" data-cat="historie">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±40'</div><div class="u">rijden</div></div></div>
+      <div class="cat">Stad · Zee</div>
+      <h3>Cherbourg &amp; La Cité de la Mer</h3>
+      <p>Meer waard dan z'n reputatie: de op één na grootste kunstmatige rede ter wereld. La Cité de la Mer heeft een monumentaal aquarium, de onderzeeër Le Redoutable en een aangrijpende Titanic-expo.</p>
+      <div class="tip"><b>Tip:</b> honden mogen niet mee naar binnen in de Cité — plan dit als een “om beurten”-bezoek of laat de honden thuis uitrusten.</div>
+      <div class="foot"><span class="pill p-beurt">Om beurten (binnen)</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+
+    <article class="card" data-cat="historie parels">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±30'</div><div class="u">rijden</div></div></div>
+      <div class="cat">Middeleeuws · Legende</div>
+      <h3>Château de Pirou</h3>
+      <p>Een van de oudste burchten van Normandië, omgeven door grachten en verscholen achter drie poorten. Verbonden aan de legende van de ganzen van Pirou — de bewoners die zich in vogels veranderden om aan de Vikingen te ontsnappen.</p>
+      <div class="tip"><b>Tip:</b> klein en snel bezocht; combineer met de Côte des Havres of het strand van Armanville/Pirou (hondvriendelijk).</div>
+      <div class="foot"><span class="pill p-beurt">Om beurten (binnen)</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+
+    <article class="card" data-cat="historie">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±25'</div><div class="u">rijden</div></div></div>
+      <div class="cat">Abdij · Romaans</div>
+      <h3>Abbaye de Lessay</h3>
+      <p>Een van de mooiste romaanse abdijkerken van Normandië (11e eeuw), na de oorlog steen voor steen heropgebouwd. Sober, licht en indrukwekkend — en Lessay zelf is een fijn marktdorp.</p>
+      <div class="tip"><b>Tip:</b> ligt op de route naar Coutances of Pirou; een korte stop die de omweg waard is.</div>
+      <div class="foot"><span class="pill p-beurt">Om beurten (binnen)</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+  </div>
+
+  <!-- ---------- DORPEN & LEKKERS ---------- -->
+  <div class="sectionhead"><h2>Dorpen &amp; lekker tafelen</h2><span class="rule"></span></div>
+  <div class="grid">
+
+    <article class="card" data-cat="dorpen">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±1u</div><div class="u">rijden</div></div></div>
+      <div class="cat">Plus Beau Village</div>
+      <h3>Barfleur</h3>
+      <p>Geclassificeerd als een van de mooiste dorpen van Frankrijk — “de parel van de Val de Saire”. Slenter over de pier, kijk naar de vissers en geniet van de rust. Klim eventueel de vuurtoren van Gatteville (365 treden).</p>
+      <div class="tip"><b>Tip:</b> honden aan de leiband welkom in het dorp; een terrasje aan de haven doet het altijd goed.</div>
+      <div class="foot"><span class="pill p-lei">Aan de leiband</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+
+    <article class="card" data-cat="dorpen historie">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±1u15</div><div class="u">rijden</div></div></div>
+      <div class="cat">Badstad · Dior</div>
+      <h3>Granville &amp; Musée Christian Dior</h3>
+      <p>Levendige badstad met het Christian Dior-museum in zijn geboortehuis, met tuin en zeezicht. Ook het vertrekpunt van de boot naar Chausey.</p>
+      <div class="tip"><b>Tip:</b> combineer stad en eilanden op één dag, of blijf op het vasteland voor de bovenstad en de vestingwallen.</div>
+      <div class="foot"><span class="pill p-beurt">Om beurten (museum)</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+
+    <article class="card" data-cat="dorpen historie">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±45'</div><div class="u">rijden</div></div></div>
+      <div class="cat">Kathedraal · Stad</div>
+      <h3>Coutances</h3>
+      <p>De historische hoofdstad van de Cotentin, met een gotische kathedraal die na de Mont-Saint-Michel het bekendste juweel van de Normandische gotiek is. Fijne stad om te flaneren, met winkeltjes, delicatessen en een openbare tuin.</p>
+      <div class="tip"><b>Tip:</b> mooie tussenstop als je toch richting het zuiden rijdt.</div>
+      <div class="foot"><span class="pill p-lei">Aan de leiband</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+
+    <article class="card" data-cat="dorpen">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±1u15</div><div class="u">rijden</div></div></div>
+      <div class="cat">Ambacht · Koper</div>
+      <h3>Villedieu-les-Poêles</h3>
+      <p>“Stad van de koperslagers”: al sinds de middeleeuwen worden hier koperen potten, pannen en ketels gesmeed. Het dorp draagt het label “Ville et Métiers d'Art” en heeft ateliers, winkeltjes en zelfs een klokkengieterij die je kunt bezoeken.</p>
+      <div class="tip"><b>Tip:</b> ligt op de route naar Mortain of Mont-Saint-Michel — mooi te combineren op één zuidelijke dag.</div>
+      <div class="foot"><span class="pill p-beurt">Om beurten (ateliers)</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+  </div>
+
+  <!-- ---------- VERBORGEN PARELS ---------- -->
+  <div class="sectionhead"><h2>Verborgen parels</h2><span class="rule"></span></div>
+  <div class="grid">
+
+    <article class="card" data-cat="parels natuur">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±45'</div><div class="u">rijden</div></div></div>
+      <div class="cat">Curiosum · Poëzie</div>
+      <h3>Port Racine &amp; Omonville</h3>
+      <p>Officieel de kleinste haven van Frankrijk (~250 m²), bij Cap de la Hague. Combineer met Omonville-la-Petite, waar dichter Jacques Prévert begraven ligt, en zijn tuin met bomen geplant door o.a. Yves Montand en Picasso.</p>
+      <div class="tip"><b>Tip:</b> ideaal te koppelen aan de wandeling bij Nez de Jobourg — het ligt om de hoek.</div>
+      <div class="foot"><span class="pill p-lei">Aan de leiband</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+
+    <article class="card" data-cat="parels natuur">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±1u30</div><div class="u">rijden</div></div></div>
+      <div class="cat">Waterval · Wandelen</div>
+      <h3>Cascade de Mortain</h3>
+      <p>De grootste waterval van West-Frankrijk, verscholen in het glooiende bocage-landschap. Wandelen, fietsen en klimmen kan hier — een verrassend groen en fris decor, ver van de kust.</p>
+      <div class="tip"><b>Tip:</b> een goede optie op een warme dag: bos, schaduw en stromend water.</div>
+      <div class="foot"><span class="pill p-lei">Aan de leiband</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+
+    <article class="card" data-cat="parels">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±45'</div><div class="u">rijden</div></div></div>
+      <div class="cat">Havens · Stilte</div>
+      <h3>Regnéville-sur-Mer &amp; Havre de la Vanlée</h3>
+      <p>Verstilde haventjes en zoutweiden aan de Côte des Havres, met een 12e-eeuwse kasteelruïne. Weinig toeristen, veel ruimte — een van die plekken die je normaal voorbijrijdt.</p>
+      <div class="tip"><b>Tip:</b> de submersibele weg door het havre is bijzonder — check wel de getijden vooraf.</div>
+      <div class="foot"><span class="pill p-lei">Aan de leiband</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+
+    <article class="card" data-cat="parels natuur">
+      <div class="diststamp" aria-hidden="true"><div><div class="m">±1u15</div><div class="u">rijden</div></div></div>
+      <div class="cat">Kunst · Kustpad</div>
+      <h3>Carolles &amp; de Vallée des Peintres</h3>
+      <p>Een verscholen vallei tussen bocage en zee die grote schilders inspireerde — een openluchtmuseum van landschappen. Wandel door naar de Cabane Vauban op de klif, een 17e-eeuws wachthuisje met zicht over de baai van Mont-Saint-Michel.</p>
+      <div class="tip"><b>Tip:</b> de kustwandeling vanaf Carolles is makkelijk voor iedereen; het klifpad richting Champeaux is pittiger maar spectaculair.</div>
+      <div class="foot"><span class="pill p-lei">Aan de leiband</span><button class="pick"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2"/><circle cx="10.5" cy="7" r="2"/><circle cx="15.5" cy="7" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12.5 12c-2.5 0-4.5 2-4.5 4 0 1.6 1.3 2.5 2.8 2.5.9 0 1.2-.4 1.7-.4s.8.4 1.7.4c1.5 0 2.8-.9 2.8-2.5 0-2-2-4-4.5-4z"/></svg><span class="txt">kies dit</span></button></div>
+    </article>
+  </div>
+
+  <p class="empty" id="empty" style="display:none;font-family:'Fraunces';font-size:1.2rem;color:#8a867c;padding:24px 0;">Geen plekken in deze selectie — kies eerst een paar favorieten met “kies dit”.</p>
+
+  <!-- ---------- HONDEN PRAKTISCH ---------- -->
+  <div class="honden">
+    <span class="kicker">Belangrijk in juli</span>
+    <h2>Met Mollie &amp; Maddie op stap</h2>
+    <div class="honden-grid">
+      <div>
+        <h4>Strandregels in hoogseizoen</h4>
+        <p>Veel stranden laten honden 's zomers alleen toe op bepaalde uren, meestal:</p>
+        <ul>
+          <li>Les Pieux-Sciotot: vóór 11u / na 19u</li>
+          <li>Siouville &amp; Bréville: vóór 9u / na 19u</li>
+          <li>Surtainville, Urville-Nacqueville, Donville-les-Bains: hele jaar, aan de leiband</li>
+          <li>Platé (Tréauville): geen beperking</li>
+        </ul>
+        <p style="margin-top:8px;">Lees altijd het bordje ter plaatse — het verschilt per gemeente.</p>
+      </div>
+      <div>
+        <h4>Hitte is het grootste risico</h4>
+        <p>Deze week kan het warm zijn. Let op:</p>
+        <ul>
+          <li>Zand wordt gloeiend heet → verbrande pootjes</li>
+          <li>Pas op voor hitteslag en hydrocutie (te snel het koude water in)</li>
+          <li>Neem altijd water mee</li>
+          <li>Wandel vroeg of laat; de GR 223-kustpaden zijn koeler en schaduwrijker dan open strand</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Bij eb worden de stranden enorm</h4>
+        <p>De westkust rond Barneville-Carteret valt bij laag water ver droog — perfect voor lange wandelingen met de pootjes in het water. Check de getijkalender aan het begin van elke dag.</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="disclaimer">Rijtijden zijn bij benadering, gerekend vanaf de omgeving van Barneville-Carteret. Openingsuren, boot- en getijdiensten kunnen wijzigen — check ter plaatse of online vóór vertrek.</p>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="stempel" aria-hidden="true"><div><div class="k">🐾</div><div class="l">Manche 2026</div></div></div>
+  <p class="fx-tag"><b>short legs, big love</b></p>
+  <p class="small">Een reisgids van Zorghond Mollie · voor de familie, Mollie &amp; Maddie</p>
+</footer>
+
+<script>
+(function(){
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  var counterEl = document.querySelector('.chip.keuze .n');
+  var emptyEl = document.getElementById('empty');
+  var selected = new Set();
+  var active = 'all';
+
+  function updateCounter(){
+    counterEl.textContent = '(' + selected.size + ')';
+  }
+
+  function applyFilter(){
+    var anyVisible = false;
+    cards.forEach(function(card, i){
+      var show;
+      if(active === 'all'){
+        show = true;
+      } else if(active === 'keuze'){
+        show = selected.has(i);
+      } else {
+        show = (card.getAttribute('data-cat') || '').split(' ').indexOf(active) !== -1;
+      }
+      card.classList.toggle('hidden', !show);
+      if(show) anyVisible = true;
+    });
+    // hide section heads whose following grid has no visible cards
+    document.querySelectorAll('.sectionhead').forEach(function(head){
+      var grid = head.nextElementSibling;
+      if(!grid || !grid.classList.contains('grid')){ return; }
+      var visible = grid.querySelectorAll('.card:not(.hidden)').length;
+      head.style.display = visible ? '' : 'none';
+      grid.style.display = visible ? '' : 'none';
+    });
+    emptyEl.style.display = (active === 'keuze' && !anyVisible) ? 'block' : 'none';
+  }
+
+  chips.forEach(function(chip){
+    chip.addEventListener('click', function(){
+      active = chip.getAttribute('data-filter');
+      chips.forEach(function(c){ c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'); });
+      applyFilter();
+    });
+  });
+
+  cards.forEach(function(card, i){
+    var btn = card.querySelector('.pick');
+    if(!btn) return;
+    btn.addEventListener('click', function(){
+      if(selected.has(i)){
+        selected.delete(i);
+        card.classList.remove('selected');
+      } else {
+        selected.add(i);
+        card.classList.add('selected');
+      }
+      updateCounter();
+      if(active === 'keuze') applyFilter();
+    });
+  });
+
+  updateCounter();
+})();
+</script>
+</body>
+</html>
